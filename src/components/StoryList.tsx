@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import StoryCard from './StoryCard';
+import StoryGrid from './StoryGrid';
 import { Story } from '@/types';
 import { motion } from 'framer-motion';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
@@ -72,7 +72,7 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
       <div className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="rounded-lg bg-red-50 dark:bg-red-900/20 p-6 text-center">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333 .192 3 1.732 3z" />
           </svg>
           <h3 className="text-lg font-medium text-red-800 dark:text-red-200">{error}</h3>
           <div className="mt-4">
@@ -92,34 +92,14 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="max-w-5xl mx-auto ">
       {loading && stories.length === 0 ? (
-        <div className="space-y-4">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 p-5">
-              <div className="animate-pulse">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4"></div>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-                  </div>
-                </div>
-                <div className="flex space-x-4 mt-3">
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
-                </div>
-                <div className="mt-4 h-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                <div className="mt-4 flex justify-end">
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <StoryGrid 
+          stories={[]}
+          loading={true}
+          error={null}
+          showRecommendationInfo={showRecommendationInfo}
+        />
       ) : (
         <InfiniteScroll
           dataLength={stories.length}
@@ -141,15 +121,12 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
             </div>
           }
         >
-          <div className="space-y-6">
-            {stories.map(story => (
-              <StoryCard 
-                key={story.id} 
-                story={story} 
-                showRecommendationInfo={showRecommendationInfo}
-              />
-            ))}
-          </div>
+          <StoryGrid 
+            stories={stories}
+            loading={false}
+            error={null}
+            showRecommendationInfo={showRecommendationInfo}
+          />
         </InfiniteScroll>
       )}
     </div>

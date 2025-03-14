@@ -58,6 +58,26 @@ body {
   will-change: background-color, color;
 }
 
+/* Page heading styles */
+.container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  max-width: 64rem; /* 5xl in Tailwind */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  position: relative;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.dark .container h1 {
+  color: #ffffff;
+}
+
 /* Essential dark mode styles */
 .dark .dark\:bg-gray-700 {
   background-color: #374151 !important;
