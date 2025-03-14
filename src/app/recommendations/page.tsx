@@ -57,11 +57,11 @@ export default function RecommendationsPage() {
     <div className="min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Recommended For You</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Recommended For You</h1>
         
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="animate-pulse flex flex-col w-full max-w-2xl">
+            <div className="animate-pulse flex flex-col w-full max-w-3xl">
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4 bg-white dark:bg-gray-800">
                   <div className="flex items-start">
@@ -96,7 +96,7 @@ export default function RecommendationsPage() {
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
             {recommendations.map(story => (
               <StoryCard 
                 key={story.id} 

@@ -69,7 +69,8 @@ export const generateRecommendations = async (
       title: story.title,
       score: story.score,
     }));
-
+    
+    // console.log(historyData, storiesData);
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [

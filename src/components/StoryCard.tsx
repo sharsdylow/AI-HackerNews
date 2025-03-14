@@ -109,7 +109,7 @@ export default function StoryCard({ story, showRecommendationInfo = false }: Sto
               Why we recommend this
             </h3>
             <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{story.recommendationReason}</p>
-            <div className="mt-2 flex items-center">
+            {/* <div className="mt-2 flex items-center">
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
                 <div 
                   className="bg-orange-500 h-2.5 rounded-full" 
@@ -119,7 +119,7 @@ export default function StoryCard({ story, showRecommendationInfo = false }: Sto
               <span className="ml-2 text-sm font-medium text-orange-600 dark:text-orange-400">
                 {story.recommendationScore}%
               </span>
-            </div>
+            </div> */}
           </div>
         )}
         
