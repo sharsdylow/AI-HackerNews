@@ -79,6 +79,39 @@ html:not(.dark) {
   background-color: #111827 !important;
 }
 
+/* Text color overrides for light/dark mode */
+.dark .dark\:text-white {
+  color: #ffffff !important;
+}
+
+.dark .dark\:text-gray-100 {
+  color: #f3f4f6 !important;
+}
+
+.dark .dark\:text-gray-200 {
+  color: #e5e7eb !important;
+}
+
+.dark .dark\:text-gray-300 {
+  color: #d1d5db !important;
+}
+
+.dark .dark\:text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.text-gray-700 {
+  color: #374151 !important;
+}
+
+.text-gray-800 {
+  color: #1f2937 !important;
+}
+
+.text-gray-900 {
+  color: #111827 !important;
+}
+
 /* Optimize for hardware acceleration */
 .js-loaded * {
   -webkit-transform: translateZ(0);
@@ -88,6 +121,7 @@ html:not(.dark) {
 /* Force text colors to transition immediately */
 .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900, 
 .dark\:text-gray-100, .dark\:text-gray-200, .dark\:text-gray-300, .dark\:text-gray-400,
+.dark\:text-white, .text-white,
 .text-orange-500, .text-orange-600, 
 .dark\:text-orange-400, .dark\:text-orange-600 {
   transition: color var(--transition-duration) var(--transition-timing) !important;

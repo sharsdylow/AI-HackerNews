@@ -58,10 +58,10 @@ export default function Header() {
                       key={item.name}
                       href={item.href}
                       className={classNames(
-                        'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium',
+                        'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium transition-colors duration-150',
                         item.current
                           ? 'border-orange-500 text-gray-900 dark:text-white'
-                          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white'
+                          : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:text-gray-900 dark:hover:text-white'
                       )}
                     >
                       {item.name}
@@ -119,10 +119,10 @@ export default function Header() {
                   as={Link}
                   href={item.href}
                   className={classNames(
-                    'block border-l-4 py-2 pl-3 pr-4 text-base font-medium',
+                    'block border-l-4 py-2 pl-3 pr-4 text-base font-medium transition-colors duration-150',
                     item.current
                       ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300'
-                      : 'border-transparent text-gray-600 dark:text-gray-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-white'
+                      : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
                   )}
                 >
                   {item.name}

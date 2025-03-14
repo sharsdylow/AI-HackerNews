@@ -26,6 +26,14 @@ export function Providers({ children }: ProvidersProps) {
           document.documentElement.style.transform = 'translateZ(0)';
           document.body.style.transform = 'translateZ(0)';
           
+          // Force all text elements to update their colors
+          const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, button');
+          textElements.forEach(el => {
+            // This forces a style recalculation
+            (el as HTMLElement).style.color = '';
+            void (el as HTMLElement).offsetHeight;
+          });
+          
           // Force a repaint to ensure all elements transition together
           document.body.style.display = 'none';
           // This will force a repaint

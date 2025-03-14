@@ -72,11 +72,11 @@ export default function StoryCard({ story, showRecommendationInfo = false }: Sto
           </div>
           <div className="flex items-center">
             <ClockIcon className="h-4 w-4 mr-1" />
-            <span>{timeAgo}</span>
+            <span className="text-gray-700 dark:text-gray-400">{timeAgo}</span>
           </div>
           <div className="flex items-center">
             <ChatBubbleLeftRightIcon className="h-4 w-4 mr-1" />
-            <span>{story.descendants || 0} comments</span>
+            <span className="text-gray-700 dark:text-gray-400">{story.descendants || 0} comments</span>
           </div>
         </div>
         
