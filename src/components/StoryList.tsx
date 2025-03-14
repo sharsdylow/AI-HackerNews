@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import StoryCard from './StoryCard';
 import { Story } from '@/types';
+import { motion } from 'framer-motion';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 interface StoryListProps {
   type: 'top' | 'new' | 'best';
@@ -16,6 +18,11 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const fetchStories = async (pageNum: number) => {
     try {
@@ -56,38 +63,62 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
     fetchStories(1);
   }, [type]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (!mounted) {
+    return null;
+  }
+
   if (error) {
     return (
-      <div className="text-center py-10">
-        <p className="text-red-500">{error}</p>
-        <button 
-          onClick={() => fetchStories(1)}
-          className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors"
-        >
-          Try Again
-        </button>
+      <div className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="rounded-lg bg-red-50 dark:bg-red-900/20 p-6 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <h3 className="text-lg font-medium text-red-800 dark:text-red-200">{error}</h3>
+          <div className="mt-4">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => fetchStories(1)}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              <ArrowPathIcon className="h-5 w-5 mr-2" />
+              Try Again
+            </motion.button>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {loading && stories.length === 0 ? (
-        <div className="flex justify-center py-10">
-          <div className="animate-pulse flex flex-col w-full max-w-2xl">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4 bg-white dark:bg-gray-800">
-                <div className="flex items-start">
-                  <div className="mr-4 w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        <div className="space-y-4">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700 p-5">
+              <div className="animate-pulse">
+                <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4"></div>
+                  </div>
+                  <div className="ml-4 flex-shrink-0">
+                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
                   </div>
                 </div>
+                <div className="flex space-x-4 mt-3">
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
+                </div>
+                <div className="mt-4 h-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                <div className="mt-4 flex justify-end">
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/6"></div>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       ) : (
         <InfiniteScroll
@@ -95,18 +126,22 @@ export default function StoryList({ type, showRecommendationInfo = false }: Stor
           next={loadMoreStories}
           hasMore={hasMore}
           loader={
-            <div className="text-center py-4">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-orange-500 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-              <p className="mt-2 text-gray-600 dark:text-gray-300">Loading more stories...</p>
+            <div className="flex justify-center py-6">
+              <div className="flex flex-col items-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-4 border-orange-500 border-t-transparent"></div>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">Loading more stories...</p>
+              </div>
             </div>
           }
           endMessage={
-            <p className="text-center py-4 text-gray-500 dark:text-gray-400">
-              You&apos;ve seen all the stories!
-            </p>
+            <div className="text-center py-6">
+              <p className="text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 inline-block px-4 py-2 rounded-full">
+                You&apos;ve seen all the stories!
+              </p>
+            </div>
           }
         >
-          <div className="space-y-4">
+          <div className="space-y-6">
             {stories.map(story => (
               <StoryCard 
                 key={story.id} 
