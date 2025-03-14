@@ -73,7 +73,7 @@ export default function Header() {
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleTheme}
-                  className="rounded-full bg-gray-100 dark:bg-gray-800 p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900"
+                  className="rounded-full bg-white dark:bg-gray-800 p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm"
                 >
                   <span className="sr-only">Toggle dark mode</span>
                   {theme === 'dark' ? (
@@ -88,7 +88,7 @@ export default function Header() {
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={toggleTheme}
-                  className="relative inline-flex items-center justify-center rounded-md p-2 mr-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="relative inline-flex items-center justify-center rounded-md p-2 mr-2 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 border border-gray-200 dark:border-gray-700 shadow-sm"
                 >
                   <span className="sr-only">Toggle dark mode</span>
                   {theme === 'dark' ? (

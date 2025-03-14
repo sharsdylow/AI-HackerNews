@@ -71,6 +71,10 @@ html:not(.dark) {
   background-color: #ffffff !important;
 }
 
+html:not(.dark) .bg-white {
+  background-color: #ffffff !important;
+}
+
 .dark .dark\:bg-gray-800 {
   background-color: #1f2937 !important;
 }
@@ -125,6 +129,12 @@ html:not(.dark) {
 .text-orange-500, .text-orange-600, 
 .dark\:text-orange-400, .dark\:text-orange-600 {
   transition: color var(--transition-duration) var(--transition-timing) !important;
+}
+
+/* Force background colors to transition immediately */
+.bg-white, .bg-gray-50, .bg-gray-100, .bg-gray-200,
+.dark\:bg-gray-700, .dark\:bg-gray-800, .dark\:bg-gray-900 {
+  transition: background-color var(--transition-duration) var(--transition-timing) !important;
 }
 
 /* Modern scrollbar */

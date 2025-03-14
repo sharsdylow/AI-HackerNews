@@ -133,11 +133,11 @@ export default function StoryDetailPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">{story.title}</h1>
-            <div className="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-300 mb-4">
-              <span className="mr-4">{story.score} points</span>
-              <span className="mr-4">by {story.by}</span>
-              <span>{timeAgo}</span>
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 text-gray-900 dark:text-white">{story.title}</h1>
+            <div className="flex flex-wrap items-center text-sm text-gray-700 dark:text-gray-300 mb-4">
+              <span className="mr-4 font-medium">{story.score} points</span>
+              <span className="mr-4 font-medium">by {story.by}</span>
+              <span className="text-gray-600 dark:text-gray-400">{timeAgo}</span>
             </div>
             
             {story.url && (
@@ -166,14 +166,14 @@ export default function StoryDetailPage() {
             )}
             
             {story.summary && (
-              <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                <h2 className="text-lg font-semibold mb-2">AI Summary</h2>
-                <p className="mb-3">{story.summary}</p>
+              <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">AI Summary</h2>
+                <p className="mb-3 text-gray-800 dark:text-gray-200">{story.summary}</p>
                 
                 {story.keywords && story.keywords.length > 0 && (
                   <div>
-                    <span className="font-semibold">Keywords: </span>
-                    <span className="text-gray-600 dark:text-gray-300">
+                    <span className="font-semibold text-gray-900 dark:text-white">Keywords: </span>
+                    <span className="text-gray-700 dark:text-gray-300">
                       {story.keywords.join(', ')}
                     </span>
                   </div>
@@ -183,7 +183,7 @@ export default function StoryDetailPage() {
           </div>
           
           <div>
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
               Comments ({comments.length})
             </h2>
             
@@ -196,9 +196,9 @@ export default function StoryDetailPage() {
                     key={comment.id} 
                     className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
                   >
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300 mb-2">
-                      <span className="font-medium mr-2">{comment.by}</span>
-                      <span>{formatDistanceToNow(new Date(comment.time * 1000), { addSuffix: true })}</span>
+                    <div className="flex items-center text-sm text-gray-700 dark:text-gray-300 mb-2">
+                      <span className="font-medium mr-2 text-gray-900 dark:text-white">{comment.by}</span>
+                      <span className="text-gray-600 dark:text-gray-400">{formatDistanceToNow(new Date(comment.time * 1000), { addSuffix: true })}</span>
                     </div>
                     <div 
                       className="prose prose-sm dark:prose-invert max-w-none"
