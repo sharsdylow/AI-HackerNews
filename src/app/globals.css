@@ -75,6 +75,19 @@ html:not(.dark) .bg-white {
   background-color: #ffffff !important;
 }
 
+/* Add explicit definition for bg-gray-100 in light theme */
+.bg-gray-100 {
+  background-color: #f3f4f6 !important;
+}
+
+html:not(.dark) .bg-gray-100 {
+  background-color: #f3f4f6 !important;
+}
+
+html:not(.dark) .bg-gray-50 {
+  background-color: #f9fafb !important;
+}
+
 .dark .dark\:bg-gray-800 {
   background-color: #1f2937 !important;
 }

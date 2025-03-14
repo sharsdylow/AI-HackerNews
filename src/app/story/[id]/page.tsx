@@ -166,7 +166,7 @@ export default function StoryDetailPage() {
             )}
             
             {story.summary && (
-              <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                 <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">AI Summary</h2>
                 <p className="mb-3 text-gray-800 dark:text-gray-200">{story.summary}</p>
                 
@@ -194,7 +194,7 @@ export default function StoryDetailPage() {
                 {comments.map(comment => (
                   <div 
                     key={comment.id} 
-                    className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                    className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
                   >
                     <div className="flex items-center text-sm text-gray-700 dark:text-gray-300 mb-2">
                       <span className="font-medium mr-2 text-gray-900 dark:text-white">{comment.by}</span>
