@@ -8,20 +8,35 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  // Force light theme on initial load and set up theme change observer
+  // Set up theme and handle transitions
   useEffect(() => {
-    // Force initial light theme
-    document.documentElement.classList.add('light');
-    document.documentElement.classList.remove('dark');
+    // Check localStorage first for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    
+    // If no saved theme, set dark as default
+    if (!savedTheme) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      // Apply saved theme
+      document.documentElement.classList.add(savedTheme);
+      document.documentElement.classList.remove(savedTheme === 'dark' ? 'light' : 'dark');
+    }
     
     // Add a class to indicate JS is loaded, which can be used for transitions
-    // Apply this immediately to ensure consistent transitions
     document.documentElement.classList.add('js-loaded');
     
     // Use MutationObserver to detect theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
+          // Detect current theme
+          const isDark = document.documentElement.classList.contains('dark');
+          
+          // Save theme preference to localStorage
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          
           // Apply hardware acceleration for smoother transitions
           document.documentElement.style.transform = 'translateZ(0)';
           document.body.style.transform = 'translateZ(0)';
@@ -49,7 +64,7 @@ export function Providers({ children }: ProvidersProps) {
   }, []);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       {children}
     </ThemeProvider>
   );

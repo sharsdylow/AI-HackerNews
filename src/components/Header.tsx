@@ -3,15 +3,16 @@
 import { Fragment, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 
 const navigation = [
-  { name: 'Top', href: '/', current: true },
-  { name: 'New', href: '/new', current: false },
-  { name: 'Best', href: '/best', current: false },
-  { name: 'For You', href: '/recommendations', current: false },
+  { name: 'Top', href: '/' },
+  { name: 'New', href: '/new' },
+  { name: 'Best', href: '/best' },
+  { name: 'For You', href: '/recommendations' },
 ];
 
 function classNames(...classes: string[]) {
@@ -21,6 +22,7 @@ function classNames(...classes: string[]) {
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   // After mounting, we can access the theme
   useEffect(() => {
@@ -30,6 +32,8 @@ export default function Header() {
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
+    // Also update localStorage directly for redundancy
+    localStorage.setItem('theme', newTheme);
   };
 
   if (!mounted) {
@@ -53,20 +57,24 @@ export default function Header() {
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium transition-colors duration-150',
-                        item.current
-                          ? 'border-orange-500 text-gray-900 dark:text-white'
-                          : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:text-gray-900 dark:hover:text-white'
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {navigation.map((item) => {
+                    const isCurrentPage = 
+                      item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium transition-colors duration-150',
+                          isCurrentPage
+                            ? 'border-orange-500 text-gray-900 dark:text-white'
+                            : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:text-gray-900 dark:hover:text-white'
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -75,11 +83,11 @@ export default function Header() {
                   onClick={toggleTheme}
                   className="rounded-full bg-white dark:bg-gray-800 p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 shadow-sm"
                 >
-                  <span className="sr-only">Toggle dark mode</span>
-                  {theme === 'dark' ? (
-                    <SunIcon className="h-5 w-5" aria-hidden="true" />
-                  ) : (
+                  <span className="sr-only">Toggle theme</span>
+                  {theme === 'light' ? (
                     <MoonIcon className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <SunIcon className="h-5 w-5" aria-hidden="true" />
                   )}
                 </motion.button>
               </div>
@@ -90,11 +98,11 @@ export default function Header() {
                   onClick={toggleTheme}
                   className="relative inline-flex items-center justify-center rounded-md p-2 mr-2 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 border border-gray-200 dark:border-gray-700 shadow-sm"
                 >
-                  <span className="sr-only">Toggle dark mode</span>
-                  {theme === 'dark' ? (
-                    <SunIcon className="h-5 w-5" aria-hidden="true" />
-                  ) : (
+                  <span className="sr-only">Toggle theme</span>
+                  {theme === 'light' ? (
                     <MoonIcon className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <SunIcon className="h-5 w-5" aria-hidden="true" />
                   )}
                 </motion.button>
                 
@@ -113,21 +121,25 @@ export default function Header() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as={Link}
-                  href={item.href}
-                  className={classNames(
-                    'block border-l-4 py-2 pl-3 pr-4 text-base font-medium transition-colors duration-150',
-                    item.current
-                      ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300'
-                      : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
-                  )}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {navigation.map((item) => {
+                const isCurrentPage = 
+                  item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+                return (
+                  <Disclosure.Button
+                    key={item.name}
+                    as={Link}
+                    href={item.href}
+                    className={classNames(
+                      'block border-l-4 py-2 pl-3 pr-4 text-base font-medium transition-colors duration-150',
+                      isCurrentPage
+                        ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300'
+                        : 'border-transparent text-gray-700 dark:text-gray-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+                    )}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                );
+              })}
             </div>
           </Disclosure.Panel>
         </>
