@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  --background: #111827;
+  --foreground: #f9fafb;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
@@ -11,9 +11,9 @@
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dark {
-  --background: #111827;
-  --foreground: #f9fafb;
+.light {
+  --background: #f9fafb;
+  --foreground: #111827;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 }
@@ -58,36 +58,7 @@ body {
   will-change: background-color, color;
 }
 
-/* Force light theme styles */
-html:not(.dark) {
-  --background: #f9fafb;
-  --foreground: #111827;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
-/* Ensure Tailwind classes work properly with theme */
-.bg-white {
-  background-color: #ffffff !important;
-}
-
-html:not(.dark) .bg-white {
-  background-color: #ffffff !important;
-}
-
-/* Add explicit definition for bg-gray-100 in light theme */
-.bg-gray-100 {
-  background-color: #f3f4f6 !important;
-}
-
-html:not(.dark) .bg-gray-100 {
-  background-color: #f3f4f6 !important;
-}
-
-html:not(.dark) .bg-gray-50 {
-  background-color: #f9fafb !important;
-}
-
+/* Essential dark mode styles */
 .dark .dark\:bg-gray-700 {
   background-color: #374151 !important;
 }
@@ -100,7 +71,6 @@ html:not(.dark) .bg-gray-50 {
   background-color: #111827 !important;
 }
 
-/* Text color overrides for light/dark mode */
 .dark .dark\:text-white {
   color: #ffffff !important;
 }
@@ -121,6 +91,35 @@ html:not(.dark) .bg-gray-50 {
   color: #9ca3af !important;
 }
 
+.dark .dark\:border-gray-700 {
+  border-color: #374151 !important;
+}
+
+.dark .dark\:border-gray-800 {
+  border-color: #1f2937 !important;
+}
+
+/* Light mode styles */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb !important;
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6 !important;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb !important;
+}
+
+.text-gray-600 {
+  color: #4b5563 !important;
+}
+
 .text-gray-700 {
   color: #374151 !important;
 }
@@ -133,25 +132,34 @@ html:not(.dark) .bg-gray-50 {
   color: #111827 !important;
 }
 
+/* Add transition properties to background colors */
+.bg-white, .bg-gray-50, .bg-gray-100, .bg-gray-200, .bg-gray-300, .bg-gray-400,
+.bg-gray-500, .bg-gray-600, .bg-gray-700, .bg-gray-800, .bg-gray-900,
+.dark\:bg-gray-700, .dark\:bg-gray-800, .dark\:bg-gray-900,
+.dark\:bg-orange-900\/20, .bg-orange-50 {
+  transition: background-color var(--transition-duration) var(--transition-timing) !important;
+}
+
+/* Add transition properties to text colors */
+.text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900, 
+.dark\:text-gray-100, .dark\:text-gray-200, .dark\:text-gray-300, .dark\:text-gray-400,
+.dark\:text-white, .text-white,
+.text-orange-500, .text-orange-600, .text-orange-700,
+.dark\:text-orange-300, .dark\:text-orange-400, .dark\:text-orange-600 {
+  transition: color var(--transition-duration) var(--transition-timing) !important;
+}
+
+/* Add transition properties to border colors */
+.border-gray-100, .border-gray-200, .border-gray-300, .border-gray-700, .border-gray-800,
+.dark\:border-gray-700, .dark\:border-gray-800,
+.border-orange-500, .hover\:border-gray-300 {
+  transition: border-color var(--transition-duration) var(--transition-timing) !important;
+}
+
 /* Optimize for hardware acceleration */
 .js-loaded * {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-}
-
-/* Force text colors to transition immediately */
-.text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900, 
-.dark\:text-gray-100, .dark\:text-gray-200, .dark\:text-gray-300, .dark\:text-gray-400,
-.dark\:text-white, .text-white,
-.text-orange-500, .text-orange-600, 
-.dark\:text-orange-400, .dark\:text-orange-600 {
-  transition: color var(--transition-duration) var(--transition-timing) !important;
-}
-
-/* Force background colors to transition immediately */
-.bg-white, .bg-gray-50, .bg-gray-100, .bg-gray-200,
-.dark\:bg-gray-700, .dark\:bg-gray-800, .dark\:bg-gray-900 {
-  transition: background-color var(--transition-duration) var(--transition-timing) !important;
 }
 
 /* Modern scrollbar */
@@ -165,7 +173,7 @@ html:not(.dark) .bg-gray-50 {
   border-radius: 5px;
 }
 
-.dark ::-webkit-scrollbar-track {
+html.dark ::-webkit-scrollbar-track {
   background: #2d3748;
 }
 
@@ -174,7 +182,7 @@ html:not(.dark) .bg-gray-50 {
   border-radius: 5px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
+html.dark ::-webkit-scrollbar-thumb {
   background: #4a5568;
 }
 
@@ -182,7 +190,7 @@ html:not(.dark) .bg-gray-50 {
   background: #a0aec0;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
+html.dark ::-webkit-scrollbar-thumb:hover {
   background: #718096;
 }
 
